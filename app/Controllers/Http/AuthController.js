@@ -4,6 +4,7 @@ const { validate } = use('Validator')
 const Mail = use('Mail')
 const Env = use('Env');
 const jwt = require('jsonwebtoken');
+const Hash = use('Hash');
 
 
 const User = use('App/Models/User');
@@ -13,6 +14,29 @@ class AuthController {
 
     routeTemp() {
         return { message: "routeTemp" }
+    }
+    
+    async login({ request, response, auth }) {
+        const validation = await validate(request.all(), {
+            email: 'required|email',
+            password: 'required|min:4',
+
+        });
+        if (validation.fails()) return response.status(400).send(validation.messages());
+
+        const user = await User.findBy('email', request.input('email'));
+
+        if (!user) return response.status(500).send({ message: "User not found" });
+
+        if (!user.email_verified) return response.status(400).send({ message: "Please verify your account" });
+
+        const correctPass = await Hash.verify(request.input('password'), user.password);
+
+        if (!correctPass) return response.status(400).send({ message: "Incorrect password" });
+
+        const token = await auth.generate(user)
+
+        return response.status(200).send({ message: 'user logged in successfully',token })
     }
 
     async resendConfirmationEmail({ request, response }) {
@@ -43,7 +67,7 @@ class AuthController {
                 .subject('Confirm your Account!')
         })
 
-        return response.status(200).send({ message: 'Please check your email to confirm the account.'})
+        return response.status(200).send({ message: 'Please check your email to confirm the account.' })
 
     }
 
