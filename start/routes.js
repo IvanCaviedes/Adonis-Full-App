@@ -28,9 +28,8 @@ Route.group(() => {
   // Auth Rute
   Route.post('singup', 'AuthController.singup')
   Route.post('login', 'AuthController.login')
-  Route.post('logout', 'AuthController.routeTemp')
-  Route.post('password/rese/email', 'AuthController.routeTemp');
-  Route.post('password/reset', 'AuthController.routeTemp');
+  Route.post('password/reset/email', 'AuthController.sendResetEmail');
+  Route.post('password/reset/', 'AuthController.resetPassword');
   Route.get('confirm/:token', 'AuthController.confirmAccount');
   Route.post('confirm/resend', 'AuthController.resendConfirmationEmail');
 
