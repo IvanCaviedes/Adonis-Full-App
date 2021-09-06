@@ -27,12 +27,12 @@ Route.group(() => {
   });
   // Auth Rute
   Route.post('singup', 'AuthController.singup')
-  Route.post('login', 'AuthController.routeTemp')
+  Route.post('login', 'AuthController.login')
   Route.post('logout', 'AuthController.routeTemp')
-  Route.post('password/reset/email', 'AuthController.routeTemp');
+  Route.post('password/rese/email', 'AuthController.routeTemp');
   Route.post('password/reset', 'AuthController.routeTemp');
   Route.get('confirm/:token', 'AuthController.confirmAccount');
-  Route.post('confirm/resend', 'AuthController.routeTemp');
+  Route.post('confirm/resend', 'AuthController.resendConfirmationEmail');
 
 }).prefix('api')
 
