@@ -26,13 +26,13 @@ Route.group(() => {
     });
   });
   // Auth Rute
-  Route.post('singup', 'AuthController.routeTemp')
+  Route.post('singup', 'AuthController.singup')
   Route.post('login', 'AuthController.routeTemp')
   Route.post('logout', 'AuthController.routeTemp')
   Route.post('password/reset/email', 'AuthController.routeTemp');
   Route.post('password/reset', 'AuthController.routeTemp');
-  Route.get('confirm/:token', 'AuthController.routeTemp');
+  Route.get('confirm/:token', 'AuthController.confirmAccount');
   Route.post('confirm/resend', 'AuthController.routeTemp');
-  
+
 }).prefix('api')
 
