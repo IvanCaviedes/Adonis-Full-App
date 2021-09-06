@@ -20,9 +20,11 @@ or manually clone the repo and then run `npm install`.
 
 
 ### Migrations
-
+A named database is created AdonisFullApp.
 Run the following command to run startup migrations.
 
 ```js
 adonis migration:run
 ```
+
+
