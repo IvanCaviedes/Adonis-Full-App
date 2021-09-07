@@ -32,6 +32,11 @@ Route.group(() => {
   Route.post('password/reset/', 'AuthController.resetPassword');
   Route.get('confirm/:token', 'AuthController.confirmAccount');
   Route.post('confirm/resend', 'AuthController.resendConfirmationEmail');
+  // User Rute
+  Route.get('users', 'UserController.index').middleware(['authorization:normal'])
+  Route.get('user/:key/:value', 'UserController.show').middleware(['authorization:normal'])
+  Route.post('user/create', 'AuthController.singup').middleware(['authorization:normal'])
+  Route.delete('user/:id', 'UserController.destroy')
 
 }).prefix('api')
 

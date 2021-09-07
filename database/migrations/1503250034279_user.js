@@ -9,6 +9,7 @@ class UserSchema extends Schema {
       table.increments()
       table.string('email', 254).notNullable().unique()
       table.boolean('email_verified').defaultTo(false)
+      table.string('role', 80).defaultTo("normal")
       table.string('first_name', 80).notNullable()
       table.string('last_name', 80).notNullable()
       table.string('password', 60).notNullable()

@@ -1,20 +1,19 @@
 'use strict'
 
+//Imports
 const { validate } = use('Validator')
 const Mail = use('Mail')
 const Env = use('Env');
 const jwt = require('jsonwebtoken');
 const Hash = use('Hash');
 
+// Imported models
 const PasswordReset = use('App/Models/PasswordReset');
 const User = use('App/Models/User');
 
 
 class AuthController {
 
-    routeTemp() {
-        return { message: "routeTemp" }
-    }
     async resetPassword({ request, response, params }) {
 
         const validation = await validate(request.all(), {
@@ -86,6 +85,7 @@ class AuthController {
         return response.status(200).send({ message: 'if the email is valid, you should receive an email' })
 
     }
+
     async login({ request, response, auth }) {
 
         const validation = await validate(request.all(), {
@@ -186,6 +186,7 @@ class AuthController {
             last_name: request.input('lastName'),
             password: request.input('password'),
             email_verified: false,
+            role: "normal"
         });
 
         const token = jwt.sign({ user_id: user.id }, Env.get('SECRET'), {
@@ -202,6 +203,7 @@ class AuthController {
 
         return response.status(200).send({ message: 'Success,created please check your email to confirm the account.', user })
     }
+
 }
 
 module.exports = AuthController
